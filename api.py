@@ -7,7 +7,18 @@ current_date_time = datetime.datetime.now()
 current_time = current_date_time.time()
 
 
-def weather_by_city(city_name):
+def weather_by_city(city_name: str) -> dict:
+    """
+    Подключаемся к api.
+
+    Получаем различные парамется погодных условий.
+
+    Args:
+        city_name: str (Название города)
+
+    Returns:
+        dict: Возвращаем результат функции в виде словаря погодных условий
+    """
     weather_url = 'https://api.openweathermap.org/data/2.5/weather'
     params = {
         'q': city_name,
@@ -18,12 +29,3 @@ def weather_by_city(city_name):
     result = requests.get(weather_url, params=params)
     weather = result.json()
     return weather
-
-# w = weather_by_city(input('Введите название города: '))
-# print(f'Температура в {w['name']}: {w["main"]["temp"]}°C')
-# print(f'Описание погоды: {w["weather"][0]["description"]}')
-# print(f'Влажность: {w["main"]["humidity"]}%')
-# print(f'Давление: {w["main"]["pressure"]} мм рт.ст.')
-# print(f'Скорость ветра: {w["wind"]["speed"]} м/с')
-# print(f'Направление ветра: {w["wind"]["deg"]}°')
-# print(f'Дата и время получения данных: {current_date}, {current_time.replace(microsecond=0)}')
