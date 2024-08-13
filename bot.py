@@ -11,24 +11,18 @@ bot = telebot.TeleBot(TOKEN)
 def welcome(message):
     chat_id = message.chat.id
     mess = (f'Привет, <b>{message.from_user.first_name}</b>!\n'
-            f'Добро пожаловать в бота для подбора одежды при разных погодных условиях!\n'
+            f'Добро пожаловать в бота для подбора одежды '
+            f'при разных погодных условиях!\n'
             f'Напиши город в котором ты живёшь.'
             )
-    # keyboard = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
-    # button1 = telebot.types.KeyboardButton(text="Калининград")
-    # button2 = telebot.types.KeyboardButton(text="Москва")
-    # button3 = telebot.types.KeyboardButton(text="Санкт Петербург")
-    # keyboard.add(button1, button2, button3)
-    # bot.send_message(chat_id, mess, parse_mode='HTML', reply_markup=keyboard)
     bot.send_message(chat_id, mess, parse_mode='HTML')
 
 
 @bot.message_handler(content_types=['text'])
-def user_city(message):
+def user_city(message) -> None:
     weather_conditions = []
     w = api.weather_by_city(message.text)
-
-    if message.text in citis.cities:
+    if message.text in citis.cities():
         weather_conditions.append(f'Температура в городе {w["name"]}: {w["main"]["temp"]}°C')
         weather_conditions.append(f'Описание погоды: {w["weather"][0]["description"]}')
         weather_conditions.append(f'Влажность: {w["main"]["humidity"]}%')
