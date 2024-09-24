@@ -8,7 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 
 
 @bot.message_handler(commands=['start'])
-def welcome(message):
+def welcome(message) -> None:
     chat_id = message.chat.id
     mess = (f'Привет, <b>{message.from_user.first_name}</b>!\n'
             f'Добро пожаловать в бота для подбора одежды '
@@ -22,7 +22,7 @@ def welcome(message):
 def user_city(message) -> None:
     weather_conditions = []
     w = api.weather_by_city(message.text)
-    if message.text in citis.cities():
+    if message.text in citis.cit:
         weather_conditions.append(f'Температура в городе {w["name"]}: {w["main"]["temp"]}°C')
         weather_conditions.append(f'Описание погоды: {w["weather"][0]["description"]}')
         weather_conditions.append(f'Влажность: {w["main"]["humidity"]}%')
