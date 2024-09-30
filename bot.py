@@ -1,10 +1,10 @@
 import telebot
 import api
 import citis
-from config import TOKEN
+from config import token
 from business_logic import func
 
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(commands=['start'])
